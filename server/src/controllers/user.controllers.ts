@@ -1,18 +1,22 @@
 import { Request, Response } from "express";
-import { User, UserInterface } from "../models/user.model";
-import { UpdateOptions, DestroyOptions } from "sequelize";
+import { Ingenieur, IngenieurInterface } from "../models/user.model";
+
 
 export default class UserController {
-    public index(req: Request, res: Response) {
-        User.findAll<User>({})
-            .then((user: Array<User>) => res.json(user))
-            .catch((err: Error) => res.status(500).json({ Message: "User Controller Error", err }));
+    public async index(req: Request, res: Response) {
+        const ingenieur= await Ingenieur.findAll<Ingenieur>({}) 
+        console.log(ingenieur)
+        Ingenieur.findAll<Ingenieur>({})
+            .then((ingenieur: Array<Ingenieur>) => res.json(ingenieur))
+            .catch((err: Error) => res.status(500).json({ Message: "Ingenieur Controller Error", err }));
     }
 
-    public create(req: Request, res: Response) {
-        const params: UserInterface = req.body;
-        User.create<User>(params)
-            .then((user: User) => res.status(201).json(user))
+    public  async create(req: Request, res: Response) {
+        const params: IngenieurInterface = req.body;
+        console.log(params)
+        Ingenieur.create<Ingenieur>(params)
+            .then((ingenieur: Ingenieur) => res.status(201).json(ingenieur))
             .catch((err: Error) => res.status(500).json(err));
-    }
+        }
+    
 }

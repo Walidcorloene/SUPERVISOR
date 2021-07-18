@@ -1,18 +1,18 @@
 import express from "express";
 import * as bodyParser from "body-parser";
-import Routes from "./routes/routes";
+import Routes from "./routes/routes"
 
 export default class Server {
 
     public app: express.Application;
     public port: number;
-    public _routes: Routes = new Routes;
+    public route:Routes = new Routes();
 
     constructor(port: number) {
         this.app = express();
         this.port = port;
         this.config();
-        this._routes.routes(this.app);
+        this.route.routes(this.app);
     }
 
     public listen() {
@@ -22,5 +22,6 @@ export default class Server {
     private config(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
-    } 
+    }
+    
 }

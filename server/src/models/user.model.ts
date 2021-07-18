@@ -1,7 +1,12 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes, IntegerDataType} from "sequelize";
 import { database } from "../config/database";
 
-export interface UserInterface {
+
+
+
+
+
+export interface IngenieurInterface {
     email: string;
     name: string;
     surname: string;
@@ -9,20 +14,20 @@ export interface UserInterface {
     password: string;
 }
 
-export class User extends Model {
-    public id!: number;
-    public email!: string;
-    public name!: string;
-    public surname!: string;
-    public login!: string;
-    public password!: string;
+export class Ingenieur extends Model { 
+    id_ingenieur!: number;    
+    email!: string;
+    name!: string;
+    surname!: string;
+    login!: string;
+    password!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-User.init(
+Ingenieur.init(
     {
-        id: {
+        id_ingenieur: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
@@ -31,11 +36,11 @@ User.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-        name: {
+        nom: {
             type: new DataTypes.STRING(50),
             allowNull: true,
         },
-        surname: {
+        prenom: {
             type: new DataTypes.STRING(50),
             allowNull: true,
         },
@@ -49,9 +54,11 @@ User.init(
         }
     },
     {
-        tableName: "user",
+        tableName: "ingenieur",
         sequelize: database,
     }
 );
-
-User.sync().then(() => console.log("User table created"));
+console.log(Ingenieur === database.models.ingenieur)
+console.log(Ingenieur)
+console.log(database.models.ingenieur)
+Ingenieur.sync().then(() =>console.log("ingenieur table created"));
