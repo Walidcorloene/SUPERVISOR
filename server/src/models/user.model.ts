@@ -1,11 +1,6 @@
 import { Model, DataTypes, IntegerDataType} from "sequelize";
 import { database } from "../config/database";
 
-
-
-
-
-
 export interface IngenieurInterface {
     email: string;
     name: string;
