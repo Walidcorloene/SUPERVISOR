@@ -33,18 +33,18 @@ Ingenieur.init(
         },
         nom: {
             type: new DataTypes.STRING(50),
-            allowNull: true,
+            allowNull: false,
         },
         prenom: {
             type: new DataTypes.STRING(50),
-            allowNull: true,
+            allowNull: false,
         },
         login: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
         password: {
-            type: new DataTypes.STRING(50),
+            type: new DataTypes.STRING(20),
             allowNull: false,
         }
     },

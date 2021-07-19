@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { Ingenieur, IngenieurInterface } from "../models/user.model";
+import { Ingenieur, IngenieurInterface } from "../models/ingenieur.model";
 
 
-export default class UserController {
+export default class IngenieurController {
     public async index(req: Request, res: Response) {
         const ingenieur= await Ingenieur.findAll<Ingenieur>({}) 
         console.log(ingenieur)
