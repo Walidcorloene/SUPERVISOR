@@ -1,8 +1,8 @@
-import {database} from "../config/database"
-import { Model,DataTypes } from "sequelize"
+import { database } from "../config/database"
+import { Model, DataTypes, QueryInterface } from "sequelize"
 
 
-export interface EffectuerInterface{
+export interface EffectuerInterface {
     fk_ingenieur_id: number;
     fk_preventive_id: number;
     date_debut_intervention: Date;
@@ -10,7 +10,7 @@ export interface EffectuerInterface{
 
 }
 
-export class Effectuer extends Model{
+export class Effectuer extends Model {
     fk_ingenieur_id!: number;
     fk_preventive_id!: number;
     date_debut_intervention!: Date;
@@ -22,18 +22,18 @@ export class Effectuer extends Model{
 
 Effectuer.init(
     {
-    
+
         fk_ingenieur_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-            references: { model: "Responsable", key: "id_responsable" },
+            references: { model: "responsable", key: "id_responsable" },
         },
         fk_preventive_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-            references: { model: "Preventive", key: "id_preventive" },
+            references: { model: "preventive", key: "id_preventive" },
         },
         date_debut_intervention: {
             type: new DataTypes.DATE,
