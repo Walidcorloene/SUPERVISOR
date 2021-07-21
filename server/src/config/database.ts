@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
-export const database = new Sequelize("supervisor", "root","", {
+export const database = new Sequelize("supervisor", "lina","lina", {
     host: "localhost",
-    dialect: "mysql",
-    port: 3306
+    dialect: "postgres",
+    port: 5432
 });

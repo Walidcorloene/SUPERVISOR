@@ -9,12 +9,12 @@ import CreerController from "../controllers/creer.controller";
 import express from "express";
 
 export default class Routes {
-    
+
+    public ingenieurController: IngenieurController = new IngenieurController();
     public responsableController: ResponsableController = new ResponsableController();
     public preventiveController: PreventiveController = new PreventiveController();
     public correctiveController: CorrectiveController = new CorrectiveController();
     public equipementController: EquipementController = new EquipementController();
-    public ingenieurController: IngenieurController = new IngenieurController();
     public effectuerConteller: EffectuerController = new EffectuerController();
     public notamController: NotamController = new NotamController();
     public creerController: CreerController = new CreerController();

@@ -1,7 +1,6 @@
 import {database} from "../config/database"
 import { Model,DataTypes } from "sequelize"
 
-
 export interface CorrectiveInterface{
     anomalies_constatees: string;
     ref_manip: string;
@@ -51,8 +50,8 @@ Corrective.init(
     }
 );
 
-Corrective.sync().then(() => console.log("Corrective table synchronized."));
-
-
-
-
+async () => {
+    await Corrective.sync()
+        .then(() => console.log("Corrective table synchronized"))
+        .catch(err => console.log("Corrective Sync Error: ", err));
+}

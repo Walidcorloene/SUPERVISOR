@@ -1,25 +1,23 @@
-import {database} from "../config/database"
-import { Model,DataTypes } from "sequelize"
+import { database } from "../config/database"
+import { Model, DataTypes } from "sequelize"
 
-
-export interface PreventiveInterface{
+export interface PreventiveInterface {
     outillage_documentation: string;
     anomalie_constatee_reparee: string;
     travaux_effectues: string;
     nom_technicien: string;
 }
 
-export class Preventive extends Model{
+export class Preventive extends Model {
     id_preventive!: number;
     fk_responsable_id!: number;
-    fk_equipement_id!: number;    
+    fk_equipement_id!: number;
     outillage_documentation!: string;
-    naanomalie_constatee_repareeme!: string;
+    anomalie_constatee_reparee!: string;
     travaux_effectues!: string;
     nom_technicien!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
-
 }
 
 Preventive.init(
@@ -62,8 +60,8 @@ Preventive.init(
     }
 );
 
-Preventive.sync().then(() => console.log("Preventive table synchronized."));
-
-
-
-
+async () => {
+    await Preventive.sync()
+        .then(() => console.log("Preventive table synchronized"))
+        .catch(err => console.log("Preventive Sync Error: ", err));
+}

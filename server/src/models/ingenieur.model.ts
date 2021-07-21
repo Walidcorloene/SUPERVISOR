@@ -1,4 +1,4 @@
-import { Model, DataTypes, IntegerDataType} from "sequelize";
+import { Model, DataTypes, IntegerDataType } from "sequelize";
 import { database } from "../config/database";
 
 export interface IngenieurInterface {
@@ -9,8 +9,8 @@ export interface IngenieurInterface {
     password: string;
 }
 
-export class Ingenieur extends Model { 
-    id_ingenieur!: number;    
+export class Ingenieur extends Model {
+    id_ingenieur!: number;
     email!: string;
     name!: string;
     surname!: string;
@@ -31,11 +31,11 @@ Ingenieur.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-        nom: {
+        name: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-        prenom: {
+        surname: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
@@ -56,4 +56,9 @@ Ingenieur.init(
 console.log(Ingenieur === database.models.ingenieur)
 console.log(Ingenieur)
 console.log(database.models.ingenieur)
-Ingenieur.sync().then(() =>console.log("ingenieur table created"));
+
+const async_ingenieur = async () => {
+    await Ingenieur.sync()
+        .then(() => console.log("Preventive table synchronized"))
+        .catch(err => console.log("Preventive Sync Error: ", err));
+}

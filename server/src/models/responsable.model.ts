@@ -1,8 +1,7 @@
-import {database} from "../config/database"
-import { Model,DataTypes } from "sequelize"
+import { database } from "../config/database"
+import { Model, DataTypes } from "sequelize"
 
-
-export interface ResponsableInterface{
+export interface ResponsableInterface {
     email: string;
     name: string;
     surname: string;
@@ -10,9 +9,8 @@ export interface ResponsableInterface{
     password: string;
 }
 
-export class Responsable extends Model{
-    id_responsable!: number;    
-    fk_preventive_id!: number;
+export class Responsable extends Model {
+    id_responsable!: number;
     email!: string;
     name!: string;
     surname!: string;
@@ -22,7 +20,7 @@ export class Responsable extends Model{
     public readonly updatedAt!: Date;
 
 }
-
+//u u unsigned unique : id random a tester
 Responsable.init(
     {
         id_responsable: {
@@ -30,20 +28,15 @@ Responsable.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        fk_preventive_id: {
-            type: new DataTypes.INTEGER,
-            allowNull: false,
-            references: { model: "Preventive", key: "id_preventive" },
-        },
         email: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-        nom: {
+        name: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-        prenom: {
+        surname: {
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
@@ -62,8 +55,8 @@ Responsable.init(
     }
 );
 
-Responsable.sync().then(() => console.log("responsable table synchronized."));
-
-
-
-
+async () => {
+    await Responsable.sync()
+        .then(() => console.log("Responsable table synchronized"))
+        .catch(err => console.log("Responsable Sync Error: ", err));
+}

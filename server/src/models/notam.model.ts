@@ -1,6 +1,8 @@
 import {database} from "../config/database"
 import { Model,DataTypes } from "sequelize"
 
+//Notam: Lorsque la tache corrective est effectuée
+//une notification est envoyée au responsable pour créer un Notam
 
 export interface NotamInterface{
     fk_responsable_id: number;
@@ -18,7 +20,6 @@ export class Notam extends Model{
     contenu!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
-
 }
 
 Notam.init(
@@ -57,8 +58,10 @@ Notam.init(
     }
 );
 
-Notam.sync().then(() => console.log("Notam table synchronized."));
-
-
+async () => {
+    await Notam.sync()
+        .then(() => console.log("Notam table synchronized"))
+        .catch(err => console.log("Notam Sync Error: ", err));
+}
 
 

@@ -1,7 +1,6 @@
 import {database} from "../config/database"
 import { Model,DataTypes } from "sequelize"
 
-
 export interface EquipementInterface{
     equipment_machine: string;
     atelier: string;
@@ -21,7 +20,6 @@ export class Equipement extends Model{
     operations_effectuees!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
-
 }
 
 Equipement.init(
@@ -63,8 +61,8 @@ Equipement.init(
     }
 );
 
-Equipement.sync().then(() => console.log("Equipement table synchronized."));
-
-
-
-
+async () => {
+    await Equipement.sync()
+        .then(() => console.log("Equipement table synchronized"))
+        .catch(err => console.log("Equipement Sync Error: ", err));
+}

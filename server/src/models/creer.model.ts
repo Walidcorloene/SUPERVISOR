@@ -1,6 +1,7 @@
 import {database} from "../config/database"
 import { Model,DataTypes } from "sequelize"
 
+//Creer: l'ingenieur crée une tache corrective
 
 export interface CreerInterface{
     fk_ingenieur_id: number;
@@ -22,7 +23,6 @@ export class Creer extends Model{
 
 Creer.init(
     {
-       
         fk_ingenieur_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
@@ -50,8 +50,8 @@ Creer.init(
     }
 );
 
-Creer.sync().then(() => console.log("Creer table synchronized."));
-
-
-
-
+async () => {
+    await Creer.sync()
+        .then(() => console.log("Creer table synchronized"))
+        .catch(err => console.log("Creer Sync Error: ", err));
+}
