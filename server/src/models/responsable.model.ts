@@ -33,7 +33,7 @@ Responsable.init(
         fk_preventive_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            references: { model: "preventive", key: "id_preventive" },
+            references: { model: "Preventive", key: "id_preventive" },
         },
         email: {
             type: new DataTypes.STRING(50),

@@ -26,14 +26,14 @@ Creer.init(
         fk_ingenieur_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            references: { model: "ingenieur", key: "id_ingenieur" },
+           // primaryKey: true,
+            references: { model: "Ingenieur", key: "id_ingenieur" },
         },
         fk_corrective_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            references: { model: "corrective", key: "id_corrective" },
+           // primaryKey: true,
+            references: { model: "Corrective", key: "id_corrective" },
         },
         date_debut_intervention: {
             type: new DataTypes.DATE,

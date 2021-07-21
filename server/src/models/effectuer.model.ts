@@ -26,14 +26,14 @@ Effectuer.init(
         fk_ingenieur_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            references: { model: "responsable", key: "id_responsable" },
+          //  primaryKey: true,
+            references: { model: "Responsable", key: "id_responsable" },
         },
         fk_preventive_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            references: { model: "preventive", key: "id_preventive" },
+            //primaryKey: true,
+            references: { model: "Preventive", key: "id_preventive" },
         },
         date_debut_intervention: {
             type: new DataTypes.DATE,

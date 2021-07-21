@@ -29,7 +29,7 @@ Corrective.init(
         fk_equipement_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            references: { model: "equipement", key: "id_equipement" },
+            references: { model: "Equipement", key: "id_equipement" },
         },
         
         anomalies_constatees: {

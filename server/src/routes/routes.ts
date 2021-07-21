@@ -7,7 +7,6 @@ import EffectuerController from "../controllers/effectuer.controller";
 import NotamController from "../controllers/notam.controller";
 import CreerController from "../controllers/creer.controller";
 import express from "express";
-import { Creer } from "../models/creer.model";
 
 export default class Routes {
     

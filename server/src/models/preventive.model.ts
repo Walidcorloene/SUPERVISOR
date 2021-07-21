@@ -32,12 +32,12 @@ Preventive.init(
         fk_responsable_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            references: { model: "responsable", key: "id_responsable" },
+            references: { model: "Responsable", key: "id_responsable" },
         },
         fk_equipement_id: {
             type: new DataTypes.INTEGER,
             allowNull: false,
-            references: { model: "equipement", key: "id_equipement" },
+            references: { model: "Equipement", key: "id_equipement" },
         },
         outillage_documentation: {
             type: new DataTypes.TEXT,
