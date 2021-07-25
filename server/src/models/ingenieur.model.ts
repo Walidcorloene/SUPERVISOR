@@ -1,64 +1,44 @@
-import { Model, DataTypes, IntegerDataType } from "sequelize";
-import { database } from "../config/database";
+export default class Ingenieur {
 
-export interface IngenieurInterface {
-    email: string;
-    name: string;
-    surname: string;
-    login: string;
-    password: string;
-}
+    id_ingenieur: any;
+    email: any;
+    name: any;
+    surname: any;
+    login: any;
+    password: any;
 
-export class Ingenieur extends Model {
-    id_ingenieur!: number;
-    email!: string;
-    name!: string;
-    surname!: string;
-    login!: string;
-    password!: string;
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
 
-Ingenieur.init(
-    {
-        id_ingenieur: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        email: {
-            type: new DataTypes.STRING(50),
-            allowNull: false,
-        },
-        name: {
-            type: new DataTypes.STRING(50),
-            allowNull: false,
-        },
-        surname: {
-            type: new DataTypes.STRING(50),
-            allowNull: false,
-        },
-        login: {
-            type: new DataTypes.STRING(50),
-            allowNull: false,
-        },
-        password: {
-            type: new DataTypes.STRING(20),
-            allowNull: false,
-        }
-    },
-    {
-        tableName: "ingenieur",
-        sequelize: database,
+    constructor(data: { id_ingenieur: any; email: any; name: any; surname: any; login: any; password: any; }) {
+        this.id_ingenieur = data.id_ingenieur;
+        this.email = data.email;
+        this.name = data.name;
+        this.surname = data.surname;
+        this.login = data.login;
+        this.password = data.password;
     }
-);
-console.log(Ingenieur === database.models.ingenieur)
-console.log(Ingenieur)
-console.log(database.models.ingenieur)
+    serialize() {
+        return {
+        id_ingenieur: this.id_ingenieur,
+        email: this.email,
+        name: this.name,
+        surname: this.surname,
+        login: this.login,
+        password: this.password
+        }
+    }
 
-const async_ingenieur = async () => {
-    await Ingenieur.sync()
-        .then(() => console.log("Preventive table synchronized"))
-        .catch(err => console.log("Preventive Sync Error: ", err));
+    static async create(name, surname, email, password) {
+
+        if (!id)
+            
+        return new User({
+            id,
+            username,
+            email,
+            password: hash,
+            otp_key: null,
+            is_email_confirmed,
+            date_created: Date.now()
+        });
+    }
 }
