@@ -1,28 +1,28 @@
 import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 
-export interface ResponsableInterface {
-    id_responsable: number;
-    email: string;
+
+export interface IngenieurInterface {
+    id_ingenieur: number;
     name: string;
     surname: string;
     login: string;
     password: string;
+    email: string;
 }
 
-export class Responsable extends Model implements ResponsableInterface {
-    id_responsable!: number;
-    email!: string; //null
-    name!: string; //? not null
+export  class Ingenieur extends Model implements IngenieurInterface {
+    id_ingenieur!: number;
+    name!: string;
     surname!: string;
     login!: string;
     password!: string;
+    email!: string;
 }
 
-
-Responsable.init(
+Ingenieur.init(
     {
-        id_responsable: {
+        id_ingenieur: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
@@ -35,7 +35,7 @@ Responsable.init(
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
-        login: {
+        login:{
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
@@ -47,18 +47,18 @@ Responsable.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-
+      
     },
     {
         timestamps: false,
-        tableName: "responsable",
+        tableName: "ingenieur",
         sequelize: database,
     }
 );
 
-Responsable.sync()
-    .then(() => console.log("Responsable. table synchronized"))
-    .catch(err => console.log("Responsable. Sync Error: ", err));
 
 
+Ingenieur.sync()
+    .then(() => console.log("Ingenieur table synchronized"))
+    .catch(err => console.log("Ingenieur Sync Error: ", err));
 
