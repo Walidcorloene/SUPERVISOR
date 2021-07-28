@@ -1,23 +1,26 @@
-import { Model, DataTypes, IntegerDataType } from "sequelize";
+/*import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
+import { Corrective } from "./corrective.model";
+import { Creer } from "./creer.model";
+import { Effectuer } from "./effectuer.model";
+import { Preventive } from "./preventive.model";
 
 export interface IngenieurInterface {
-    email: string;
+    id_ingenieur: number;
     name: string;
     surname: string;
     login: string;
     password: string;
+    email: string;
 }
 
-export class Ingenieur extends Model {
+export  class Ingenieur extends Model implements IngenieurInterface {
     id_ingenieur!: number;
-    email!: string;
     name!: string;
     surname!: string;
     login!: string;
     password!: string;
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    email!: string;
 }
 
 Ingenieur.init(
@@ -27,38 +30,38 @@ Ingenieur.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        email: {
-            type: new DataTypes.STRING(50),
-            allowNull: false,
-        },
         name: {
-            type: new DataTypes.STRING(50),
+            type: new DataTypes.STRING(30),
             allowNull: false,
         },
         surname: {
-            type: new DataTypes.STRING(50),
+            type: new DataTypes.STRING(30),
             allowNull: false,
         },
-        login: {
-            type: new DataTypes.STRING(50),
+        loginI:{
+            type: new DataTypes.STRING(30),
             allowNull: false,
         },
         password: {
             type: new DataTypes.STRING(20),
             allowNull: false,
-        }
+        },
+        email: {
+            type: new DataTypes.STRING(50),
+            allowNull: false,
+        },
+      
     },
     {
+        timestamps: false,
         tableName: "ingenieur",
         sequelize: database,
     }
 );
-console.log(Ingenieur === database.models.ingenieur)
-console.log(Ingenieur)
-console.log(database.models.ingenieur)
 
-const async_ingenieur = async () => {
-    await Ingenieur.sync()
-        .then(() => console.log("Preventive table synchronized"))
-        .catch(err => console.log("Preventive Sync Error: ", err));
-}
+
+
+Ingenieur.sync()
+    .then(() => console.log("Ingenieur table synchronized"))
+    .catch(err => console.log("Ingenieur Sync Error: ", err));
+*/

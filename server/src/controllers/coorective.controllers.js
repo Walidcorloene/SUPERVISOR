@@ -6,9 +6,8 @@ import { Corrective, CorrectiveInterface } from "../models/corrective.model";
 var initModels = require("./models/init-models");
 var models = initModels(sequelize);
 
-export default class CorrectiveController {
-    public async index(req: Request, res: Response) {
-       // const corrective= await Corrective.findAll<Corrective>({}) 
+public async index(req, res) {
+    const corrective = await models.corrective.findAll<models.corrective>({}) 
       
  
        console.log(corrective)

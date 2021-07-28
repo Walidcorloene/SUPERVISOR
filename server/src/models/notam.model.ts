@@ -1,67 +1,70 @@
-import {database} from "../config/database"
-import { Model,DataTypes } from "sequelize"
-
-//Notam: Lorsque la tache corrective est effectuée
-//une notification est envoyée au responsable pour créer un Notam
-
-export interface NotamInterface{
-    fk_responsable_id: number;
-    fk_corrective_id: number;
-    dateN: Date;
-    contenu: string;
-}
-
-export class Notam extends Model{
-    id_notam!:number
-    fk_responsable_id!: number;
-    fk_corrective_id!: number;    
-    dateN!: Date;
-    objet!: string;
-    contenu!: string;
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
-
-Notam.init(
-    {
-        id_notam: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        fk_responsable_id: {
-            type: new DataTypes.INTEGER,
-            allowNull: false,
-            references: { model: "Responsable", key: "id_responsable" },
-        },
-        fk_corrective_id: {
-            type: new DataTypes.INTEGER,
-            allowNull: false,
-            references: { model: "Corrective", key: "id_corrective" },
-        },
-        dateN: {
-            type: new DataTypes.DATE,
-            allowNull: false,
-        },
-        objet: {
-            type: new DataTypes.TEXT,
-            allowNull: false,
-        },
-        contenu: {
-            type: new DataTypes.TEXT,
-            allowNull: false,
-        }
-    },
-    {
-        tableName: "notam",
-        sequelize: database,
-    }
-);
-
-async () => {
-    await Notam.sync()
-        .then(() => console.log("Notam table synchronized"))
-        .catch(err => console.log("Notam Sync Error: ", err));
-}
-
-
+//import { Model, DataTypes } from "sequelize"
+//import { database } from "../config/database";
+//import { Corrective } from "./corrective.model";
+//import { Responsable } from "./responsable.model";
+//
+////Notam: Lorsque la tache corrective est effectuée
+////une notification est envoyée au responsable pour créer un Notam
+//
+//export interface NotamInterface {
+//    id_notam: number;
+//    installation: string;
+//    cause: string;
+//    objetNotam: string;
+//    autre: string;
+//}
+//
+//export class Notam extends Model implements NotamInterface {
+//    id_notam!: number;
+//    installation!: string;
+//    cause!: string;
+//    objetNotam!: string;
+//    autre!: string;
+//}
+//
+//Notam.init(
+//    {
+//        id_notam: {
+//            type: DataTypes.INTEGER,
+//            autoIncrement: true,
+//            primaryKey: true,
+//        },
+//        dateDebut: {
+//            type: new DataTypes.DATE,
+//            allowNull: false,
+//        },
+//        installation: {
+//            type: new DataTypes.STRING(100),
+//            allowNull: false,
+//        },
+//        cause: {
+//            type: new DataTypes.STRING(50),
+//            allowNull: false,
+//        },
+//
+//        objetNotam: {
+//            type: new DataTypes.STRING(50),
+//            allowNull: false,
+//        },
+//        contenu: {
+//            type: new DataTypes.TEXT,
+//            allowNull: false,
+//        }
+//    },
+//    {
+//        timestamps: false,
+//        tableName: "notam",
+//        sequelize: database,
+//    }
+//);
+//
+//Corrective.hasMany(Notam);
+//Notam.belongsTo(Corrective);
+//
+//Responsable.hasMany(Notam);
+//Notam.belongsTo(Responsable);
+//
+//Notam.sync()
+//    .then(() => console.log("Notam table synchronized"))
+//    .catch(err => console.log("Notam Sync Error: ", err));
+//
