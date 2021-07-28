@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const sequelize = require('index.js').sequelize;
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('effectuer', {
     IngenieurIdIngenieur: {

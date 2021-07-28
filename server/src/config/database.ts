@@ -1,17 +1,18 @@
-<<<<<<< HEAD
-import {Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
 
-export const database = new Sequelize('supervisor', 'root', '', {
-  dialect: 'mysql'
+const database = new Sequelize('supervisor', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
+  port: 3306
 })
-=======
-const mysql = require("mysql");
-const database = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "supervisor",
-});
 
-module.exports = database;
->>>>>>> 97a092884e93c7bdef95037aa41cd02671a402a0
+database
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+module.exports = database

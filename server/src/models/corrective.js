@@ -1,4 +1,5 @@
-const Sequelize = require('sequelize');
+var sequelize = require("sequelize");
+
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('corrective', {
     id_corrective: {

@@ -18,7 +18,6 @@ function initModels(sequelize) {
   var preventive = _preventive(sequelize, DataTypes);
   var responsable = _responsable(sequelize, DataTypes);
 
-
   return {
     corrective,
     creer,
