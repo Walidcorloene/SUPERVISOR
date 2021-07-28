@@ -1,11 +1,9 @@
-/*import { Model, DataTypes } from "sequelize"
+import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
-import { Corrective } from "./corrective.model";
-import { Preventive } from "./preventive.model";
 
 export interface EquipementInterface {
     id_equipement: number;
-    equipment_machine: string;
+    equipement_machine: string;
     atelier: string;
     etat_station: string;
     R_restriction: string;
@@ -15,7 +13,7 @@ export interface EquipementInterface {
 
 export class Equipement extends Model implements EquipementInterface {
     id_equipement!: number;
-    equipment_machine!: string;
+    equipement_machine!: string;
     atelier!: string;
     etat_station!: string;
     R_restriction!: string;
@@ -65,4 +63,4 @@ Equipement.init(
 Equipement.sync()
     .then(() => console.log("Equipement table synchronized"))
     .catch(err => console.log("Equipement Sync Error: ", err));
-*/
+

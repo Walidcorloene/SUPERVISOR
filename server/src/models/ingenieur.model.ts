@@ -1,9 +1,6 @@
-/*import { Model, DataTypes } from "sequelize"
+import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
-import { Corrective } from "./corrective.model";
-import { Creer } from "./creer.model";
-import { Effectuer } from "./effectuer.model";
-import { Preventive } from "./preventive.model";
+
 
 export interface IngenieurInterface {
     id_ingenieur: number;
@@ -38,7 +35,7 @@ Ingenieur.init(
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
-        loginI:{
+        login:{
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
@@ -64,4 +61,4 @@ Ingenieur.init(
 Ingenieur.sync()
     .then(() => console.log("Ingenieur table synchronized"))
     .catch(err => console.log("Ingenieur Sync Error: ", err));
-*/
+
