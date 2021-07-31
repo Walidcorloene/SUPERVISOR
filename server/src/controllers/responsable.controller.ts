@@ -18,4 +18,33 @@ export default class ResponsableController {
             .catch((err: Error) => res.status(500).json(err));
     }
 
+    public async getById(req: Request, res: Response) {
+        const ResponsableId: number = parseInt(req.params.id_responsable);
+
+        Responsable.findByPk<Responsable>(ResponsableId)
+            .then((responsable: Responsable | null) => {
+                if (responsable) {
+                    res.json(responsable);
+                } else {
+                    res.status(404).json({ errors: ["Responsable not found"] });
+                }
+            })
+            .catch((err: Error) => res.status(500).json(err));
+    }
+
+    public async update(req: Request, res: Response) {
+        const params: ResponsableInterface = req.body;
+        console.log(params)
+        Responsable.update<Responsable>(params, { where: { id: params.id_responsable } })
+            .then(() => res.status(201).json({ Message: "Responsable updated" }))
+            .catch((err: Error) => res.status(500).json(err));
+    }
+
+    public async destroy(req: Request, res: Response) {
+        const params: ResponsableInterface = req.body;
+
+        Responsable.destroy<Responsable>({ where: { id: params.id_responsable } })
+            .then(() => res.status(201).json({ Message: "Responsable deleted" }))
+            .catch((err: Error) => res.status(500).json(err));
+    }
 }

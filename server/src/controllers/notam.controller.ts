@@ -18,4 +18,33 @@ export default class NotamController {
             .catch((err: Error) => res.status(500).json(err));
     }
 
+    public async getById(req: Request, res: Response) {
+        const NotamId: number = parseInt(req.params.id_notam);
+
+        Notam.findByPk<Notam>(NotamId)
+        .then((notam: Notam | null) => {
+            if (notam) {
+                res.json(notam);
+            } else {
+                res.status(404).json({ errors: ["Notam not found"] });
+            }
+        })
+        .catch((err: Error) => res.status(500).json(err));
+    }
+
+    public async update(req: Request, res: Response) {
+        const params: NotamInterface = req.body;
+        console.log(params)
+        Notam.update<Notam>(params, { where: { id: params.id_notam } })
+            .then(() => res.status(201).json({ Message: "Notam updated" }))
+            .catch((err: Error) => res.status(500).json(err));
+    }
+
+    public async destroy(req: Request, res: Response) {
+        const params: NotamInterface = req.body;
+
+        Notam.destroy<Notam>({ where: { id: params.id_notam } })
+            .then(() => res.status(201).json({ Message: "Notam deleted" }))
+            .catch((err: Error) => res.status(500).json(err));
+    }
 }

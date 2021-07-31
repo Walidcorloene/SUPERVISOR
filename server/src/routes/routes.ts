@@ -7,6 +7,8 @@ import EquipementController from "../controllers/equipement.controller";
 import EffectuerController from "../controllers/effectuer.controller";
 import NotamController from "../controllers/notam.controller";
 import CreerController from "../controllers/creer.controller";
+import Signin from "../controllers/signin.controller";
+import Register from "../controllers/register.controller";
 
 export default class Routes {
 
@@ -18,8 +20,20 @@ export default class Routes {
     preventiveController: PreventiveController = new PreventiveController
     equipementController: EquipementController = new EquipementController
     effectuerController: EffectuerController = new EffectuerController
+    signin: Signin = new Signin
+    register: Register = new Register;
 
     public routes(app: express.Application): void {
+
+        app.route("ingenieur/signin")
+            .post(this.signin.signinIngenieur);
+
+        app.route("responsable/signin")
+            .post(this.signin.signinResponsable);
+
+
+        app.route("/register")
+            .post(this.register.register);
 
         app.route("/ingenieur")
             .get(this.ingenieurController.index)
