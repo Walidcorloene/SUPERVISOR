@@ -15,18 +15,18 @@ export class Creer extends Model implements CreerInterface {
     date_fin_intervention!: Date;
 }
 
-Creer.init(
-    {
+Creer.init({
 
-        date_debut_intervention: {
-            type: new DataTypes.DATE,
-            allowNull: false,
-        },
-        date_fin_intervention: {
-            type: new DataTypes.DATE,
-            allowNull: false,
-        },
+    date_debut_intervention: {
+        type: new DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
+    date_fin_intervention: {
+        type: new DataTypes.DATE,
+        allowNull: true
+    },
+},
     {
         timestamps: false,
         tableName: "creer",
