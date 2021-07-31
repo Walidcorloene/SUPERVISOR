@@ -20,10 +20,11 @@ Effectuer.init(
         date_debut_intervention: {
             type: new DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.NOW
         },
         date_fin_intervention: {
             type: new DataTypes.DATE,
-            allowNull: false,
+            allowNull: true
         },
     },
     {

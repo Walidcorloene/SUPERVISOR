@@ -32,6 +32,11 @@ Notam.init(
         dateDebut: {
             type: new DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        dateFin:{
+            type: new DataTypes.DATE,
+            allowNull:true
         },
         installation: {
             type: new DataTypes.STRING(100),
