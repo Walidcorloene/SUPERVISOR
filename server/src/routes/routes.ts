@@ -25,10 +25,10 @@ export default class Routes {
 
     public routes(app: express.Application): void {
 
-        app.route("ingenieur/signin")
+        app.route("/ingenieur-signin")
             .post(this.signin.signinIngenieur);
 
-        app.route("responsable/signin")
+        app.route("/responsablesignin")
             .post(this.signin.signinResponsable);
 
 

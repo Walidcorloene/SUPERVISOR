@@ -40,7 +40,7 @@ Ingenieur.init(
             allowNull: false,
         },
         password: {
-            type: new DataTypes.STRING(20),
+            type: new DataTypes.STRING(255),
             allowNull: false,
         },
         email: {

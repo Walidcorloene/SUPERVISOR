@@ -22,21 +22,21 @@ export default class EquipementController {
         const EquipementId: number = parseInt(req.params.id_equipement);
 
         Equipement.findByPk<Equipement>(EquipementId)
-        .then((equipement: Equipement | null) => {
-            if (equipement) {
-                res.json(equipement);
-            } else {
-                res.status(404).json({ errors: ["Equipement not found"] });
-            }
-        })
-        .catch((err: Error) => res.status(500).json(err));
+            .then((equipement: Equipement | null) => {
+                if (equipement) {
+                    res.json(equipement);
+                } else {
+                    res.status(404).json({ errors: ["Equipement not found"] });
+                }
+            })
+            .catch((err: Error) => res.status(500).json(err));
     }
 
     public async update(req: Request, res: Response) {
         const params: EquipementInterface = req.body;
         console.log(params)
         Equipement.update<Equipement>(params, { where: { id: params.id_equipement } })
-            .then(() => res.status(201).json({Message: "Updated with success" }))
+            .then(() => res.status(201).json({ Message: "Updated with success" }))
             .catch((err: Error) => res.status(500).json(err));
     }
 

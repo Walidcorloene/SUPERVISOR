@@ -12,10 +12,10 @@ export interface ResponsableInterface {
 
 export class Responsable extends Model implements ResponsableInterface {
     id_responsable!: number;
-    email!: string; //null
     name!: string; //? not null
     surname!: string;
     login!: string;
+    email!: string; //null
     password!: string;
 }
 
@@ -40,7 +40,7 @@ Responsable.init(
             allowNull: false,
         },
         password: {
-            type: new DataTypes.STRING(20),
+            type: new DataTypes.STRING(255),
             allowNull: false,
         },
         email: {

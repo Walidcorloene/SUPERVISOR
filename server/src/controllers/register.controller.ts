@@ -4,8 +4,7 @@ import bcrypt from "bcrypt"
 
 export default class Register {
     public async register(req: Request, res: Response) {
-        let _body: ResponsableInterface = req.body
-
+        const _body: ResponsableInterface = req.body
         const _param = {
             where: {
                 email: _body.email,
@@ -20,24 +19,24 @@ export default class Register {
         }
 
         const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(_body.password, salt);
+        const hashPassword = bcrypt.hashSync(_body.password, 10);
 
-        const newResponsable = new Responsable({
+        const newResponsable = {
             name: _body.name,
             surname: _body.surname,
-            email: _body.email,
             login: _body.login,
+            email: _body.email,
             password: hashPassword
-        });
-
-        console.log(newResponsable)
+        };
+        console.log("newResponsable", newResponsable)
+        console.log("body", _body)
+        /* 
+    */
 
         Responsable.create<Responsable>(newResponsable)
             .then((responsable: Responsable) => res.status(201).json(responsable))
             .catch((err: Error) => res.status(500).json(err));
 
-            console.log(newResponsable)
-            
         //let newResponsable = Responsable.create<Responsable>(responsable)
         //if (!newResponsable) {
         //    return res.status(500).json("Error User: User already registered");
