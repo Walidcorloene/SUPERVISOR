@@ -17,6 +17,10 @@ export class Responsable extends Model implements ResponsableInterface {
     login!: string;
     email!: string; //null
     password!: string;
+
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 }
 
 
@@ -55,10 +59,6 @@ Responsable.init(
         sequelize: database,
     }
 );
-
-Responsable.sync()
-    .then(() => console.log("Responsable. table synchronized"))
-    .catch(err => console.log("Responsable. Sync Error: ", err));
 
 
 

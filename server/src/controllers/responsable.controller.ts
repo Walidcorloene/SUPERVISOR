@@ -5,7 +5,7 @@ export default class ResponsableController {
     public async index(req: Request, res: Response) {
         const responsable = await Responsable.findAll<Responsable>({})
         console.log(responsable)
-        Responsable.findAll<Responsable>({})
+        await Responsable.findAll<Responsable>({})
             .then((responsable: Array<Responsable>) => res.json(responsable))
             .catch((err: Error) => res.status(500).json({ Message: "Responsable Controller Error", err }));
     }
@@ -13,7 +13,7 @@ export default class ResponsableController {
     public async create(req: Request, res: Response) {
         const params: ResponsableInterface = req.body;
         console.log(params)
-        Responsable.create<Responsable>(params)
+        await Responsable.create<Responsable>(params)
             .then((responsable: Responsable) => res.status(201).json(responsable))
             .catch((err: Error) => res.status(500).json(err));
     }
@@ -21,7 +21,7 @@ export default class ResponsableController {
     public async getById(req: Request, res: Response) {
         const ResponsableId: number = parseInt(req.params.id_responsable);
 
-        Responsable.findByPk<Responsable>(ResponsableId)
+        await Responsable.findByPk<Responsable>(ResponsableId)
             .then((responsable: Responsable | null) => {
                 if (responsable) {
                     res.json(responsable);
@@ -35,7 +35,7 @@ export default class ResponsableController {
     public async update(req: Request, res: Response) {
         const params: ResponsableInterface = req.body;
         console.log(params)
-        Responsable.update<Responsable>(params, { where: { id: params.id_responsable } })
+        await Responsable.update<Responsable>(params, { where: { id: params.id_responsable } })
             .then(() => res.status(201).json({ Message: "Responsable updated" }))
             .catch((err: Error) => res.status(500).json(err));
     }
@@ -43,7 +43,7 @@ export default class ResponsableController {
     public async destroy(req: Request, res: Response) {
         const params: ResponsableInterface = req.body;
 
-        Responsable.destroy<Responsable>({ where: { id: params.id_responsable } })
+        await Responsable.destroy<Responsable>({ where: { id: params.id_responsable } })
             .then(() => res.status(201).json({ Message: "Responsable deleted" }))
             .catch((err: Error) => res.status(500).json(err));
     }

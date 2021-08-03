@@ -1,12 +1,13 @@
 import express from "express";
 import * as bodyParser from "body-parser";
 import Routes from "./routes/routes"
+import { database } from "./config/database";
 
 export default class Server {
 
     public app: express.Application;
     public port: number;
-    public route:Routes = new Routes();
+    public route: Routes = new Routes();
 
     constructor(port: number) {
         this.app = express();
@@ -16,12 +17,16 @@ export default class Server {
     }
 
     public listen() {
-        this.app.listen(this.port, () => console.log(`Example app listening on port ${this.port}!`));
+        this.app.listen(this.port, async () => {
+            console.log(`Example app listening on port ${this.port}!`)
+            await database.authenticate()
+            console.log("database synced")
+        });
     }
 
     private config(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
-    
+
 }

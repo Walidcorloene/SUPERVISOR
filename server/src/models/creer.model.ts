@@ -14,6 +14,9 @@ export class Creer extends Model implements CreerInterface {
     IngenieurIdIngenieur!: number;
     date_debut_intervention!: Date;
     date_fin_intervention!: Date;
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 }
 
 Creer.init({
@@ -36,8 +39,3 @@ Creer.init({
 
 Corrective.belongsToMany(Ingenieur, { through: Creer });
 Ingenieur.belongsToMany(Corrective, { through: Creer });
-
-Creer.sync()
-    .then(() => console.log("Creer table synchronized"))
-    .catch(err => console.log("Creer Sync Error: ", err));
-

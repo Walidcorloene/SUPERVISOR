@@ -20,6 +20,9 @@ export class Notam extends Model implements NotamInterface {
     cause!: string;
     objetNotam!: string;
     autre!: string;
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 }
 
 Notam.init(
@@ -34,9 +37,9 @@ Notam.init(
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-        dateFin:{
+        dateFin: {
             type: new DataTypes.DATE,
-            allowNull:true
+            allowNull: true
         },
         installation: {
             type: new DataTypes.STRING(100),
@@ -68,8 +71,3 @@ Notam.belongsTo(Corrective);
 
 Responsable.hasMany(Notam);
 Notam.belongsTo(Responsable);
-
-Notam.sync()
-    .then(() => console.log("Notam table synchronized"))
-    .catch(err => console.log("Notam Sync Error: ", err));
-

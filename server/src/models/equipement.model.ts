@@ -19,6 +19,9 @@ export class Equipement extends Model implements EquipementInterface {
     R_restriction!: string;
     pieces_remplaces!: string;
     operations_effectuees!: string;
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 }
 
 Equipement.init(
@@ -58,9 +61,3 @@ Equipement.init(
         sequelize: database,
     }
 );
-
-
-Equipement.sync()
-    .then(() => console.log("Equipement table synchronized"))
-    .catch(err => console.log("Equipement Sync Error: ", err));
-

@@ -16,6 +16,9 @@ export class Corrective extends Model implements CorrectiveInterface {
     anomalies_constatees!: string;
     ref_manip!: string;
     nom_technicien!: string;
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 
 }
 
@@ -49,13 +52,3 @@ Corrective.init(
 
 Equipement.hasMany(Corrective);
 Corrective.belongsTo(Equipement);
-
-
-
-
-
-
-Corrective.sync()
-    .then(() => console.log("Corrective table synchronized"))
-    .catch(err => console.log("Corrective Sync Error: ", err));
-

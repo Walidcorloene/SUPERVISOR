@@ -11,13 +11,16 @@ export interface IngenieurInterface {
     email: string;
 }
 
-export  class Ingenieur extends Model implements IngenieurInterface {
+export class Ingenieur extends Model implements IngenieurInterface {
     id_ingenieur!: number;
     name!: string;
     surname!: string;
     login!: string;
     password!: string;
     email!: string;
+    toJSON() {
+        return { ...this.get(), id_responsable: undefined }
+    };
 }
 
 Ingenieur.init(
@@ -35,7 +38,7 @@ Ingenieur.init(
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
-        login:{
+        login: {
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
@@ -47,7 +50,7 @@ Ingenieur.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-      
+
     },
     {
         timestamps: false,
@@ -55,10 +58,4 @@ Ingenieur.init(
         sequelize: database,
     }
 );
-
-
-
-Ingenieur.sync()
-    .then(() => console.log("Ingenieur table synchronized"))
-    .catch(err => console.log("Ingenieur Sync Error: ", err));
 
