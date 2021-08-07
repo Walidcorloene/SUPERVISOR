@@ -2,30 +2,36 @@ import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 
 
-export interface IngenieurInterface {
-    id_ingenieur: number;
+export interface UserInterface {
+    id_user: number;
     name: string;
     surname: string;
     login: string;
     password: string;
     email: string;
+    role:string;
+    resetPasswordToken: string;
+    
 }
 
-export class Ingenieur extends Model implements IngenieurInterface {
-    id_ingenieur!: number;
+export class User extends Model implements UserInterface {
+    id_user!: number;
     name!: string;
     surname!: string;
     login!: string;
     password!: string;
     email!: string;
+    role!:string;
+    resetPasswordToken!: string;
+    
     toJSON() {
-        return { ...this.get(), id_responsable: undefined }
+        return { ...this.get(), id_user: undefined }
     };
 }
 
-Ingenieur.init(
+User.init(
     {
-        id_ingenieur: {
+        id_user: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
@@ -50,11 +56,18 @@ Ingenieur.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-
+        role:{
+            type: DataTypes.STRING(50),
+            allowNull:false
+        },
+        resetPasswordToken: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
     },
     {
         timestamps: false,
-        tableName: "ingenieur",
+        tableName: "user",
         sequelize: database,
     }
 );

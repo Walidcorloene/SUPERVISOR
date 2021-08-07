@@ -13,7 +13,10 @@ export default class Server {
         this.app = express();
         this.port = port;
         this.config();
+        this.app.set("view engine", "jade");
+        this.app.set('views', 'src/view');
         this.route.routes(this.app);
+
     }
 
     public listen() {

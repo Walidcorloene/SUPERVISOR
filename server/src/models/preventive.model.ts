@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 import { Equipement } from "./equipement.model";
-import { Responsable } from "./responsable.model";
+import { User } from "./user.model";
 
 export interface PreventiveInterface {
     id_preventive: number;
@@ -18,7 +18,7 @@ export class Preventive extends Model implements PreventiveInterface {
     travaux_effectues!: string;
     nom_technicien!: string;
     toJSON() {
-        return { ...this.get(), id_responsable: undefined }
+        return { ...this.get(), id_preventive: undefined }
     };
 }
 
@@ -55,8 +55,8 @@ Preventive.init(
     }
 );
 
-Responsable.hasMany(Preventive);
-Preventive.belongsTo(Responsable);
+User.hasMany(Preventive);
+Preventive.belongsTo(User);
 
 Equipement.hasMany(Preventive);
 Preventive.belongsTo(Equipement);

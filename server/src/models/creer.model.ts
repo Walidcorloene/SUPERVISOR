@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 import { Corrective } from "./corrective.model";
-import { Ingenieur } from "./ingenieur.model";
+import { User } from "./user.model";
 //Creer: l'ingenieur crée une tache corrective
 
 export interface CreerInterface {
@@ -37,5 +37,5 @@ Creer.init({
     }
 );
 
-Corrective.belongsToMany(Ingenieur, { through: Creer });
-Ingenieur.belongsToMany(Corrective, { through: Creer });
+Corrective.belongsToMany(User, { through: Creer });
+User.belongsToMany(Corrective, { through: Creer });

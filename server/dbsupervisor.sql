@@ -3,8 +3,10 @@ CREATE TABLE `ingenieur` (
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
   `login` varchar(30) UNIQUE NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(300) NOT NULL
+  `resetPasswordToken` varchar(225),
+  `resetPasswordExpires` date
 );
 
 CREATE TABLE `Equipement` (
@@ -30,9 +32,10 @@ CREATE TABLE `responsable` (
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
   `login` varchar(30) UNIQUE NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `id_preventive` int
+  `password` varchar(255) NOT NULL,
+  `email` varchar(50) NOT NULL
+  `resetPasswordToken` varchar(225),
+  `resetPasswordExpires` date
 );
 
 CREATE TABLE `preventive` (
@@ -50,8 +53,8 @@ CREATE TABLE `notam` (
   `dateDebut` datetime,
   `installation` varchar(100) NOT NULL,
   `cause` varchar(150) NOT NULL,
-   `objetNotam` varchar(150),
-    `contenu` text,
+  `objetNotam` varchar(150),
+  `contenu` text,
   `CorrectiveIdCorrective` int,
   `ResponsableIdResponsable` int
 );

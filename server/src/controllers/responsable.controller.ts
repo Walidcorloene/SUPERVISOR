@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/*import { Request, Response } from "express";
 import { Responsable, ResponsableInterface } from "../models/responsable.model";
 
 export default class ResponsableController {
@@ -32,7 +32,7 @@ export default class ResponsableController {
             .catch((err: Error) => res.status(500).json(err));
     }
 
-    public async update(req: Request, res: Response) {
+  public async update(req: Request, res: Response) {
         const params: ResponsableInterface = req.body;
         console.log(params)
         await Responsable.update<Responsable>(params, { where: { id: params.id_responsable } })
@@ -47,4 +47,4 @@ export default class ResponsableController {
             .then(() => res.status(201).json({ Message: "Responsable deleted" }))
             .catch((err: Error) => res.status(500).json(err));
     }
-}
+}*/

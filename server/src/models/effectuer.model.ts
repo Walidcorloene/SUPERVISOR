@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
-import { Ingenieur } from "./ingenieur.model";
+import { User } from "./user.model";
 import { Preventive } from "./preventive.model";
 
 //Effectuer : lien entre Tache préventive et l'ingenieur => l'ingenieur effectue la tache préventive
@@ -41,6 +41,6 @@ Effectuer.init(
     }
 );
 
-Ingenieur.belongsToMany(Preventive, { through: Effectuer });
-Preventive.belongsToMany(Ingenieur, { through: Effectuer });
+User.belongsToMany(Preventive, { through: Effectuer });
+Preventive.belongsToMany(User, { through: Effectuer });
 

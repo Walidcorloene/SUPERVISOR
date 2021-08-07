@@ -1,4 +1,4 @@
-import { Model, DataTypes } from "sequelize"
+/*import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 
 export interface ResponsableInterface {
@@ -8,6 +8,8 @@ export interface ResponsableInterface {
     surname: string;
     login: string;
     password: string;
+    resetPasswordToken: string;
+
 }
 
 export class Responsable extends Model implements ResponsableInterface {
@@ -17,7 +19,8 @@ export class Responsable extends Model implements ResponsableInterface {
     login!: string;
     email!: string; //null
     password!: string;
-
+    resetPasswordToken!: string;
+   
     toJSON() {
         return { ...this.get(), id_responsable: undefined }
     };
@@ -51,7 +54,10 @@ Responsable.init(
             type: new DataTypes.STRING(50),
             allowNull: false,
         },
-
+        resetPasswordToken: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
     },
     {
         timestamps: false,
@@ -61,4 +67,4 @@ Responsable.init(
 );
 
 
-
+*/

@@ -1,6 +1,6 @@
-import IngenieurController from "../controllers/ingenieur.controllers";
-import express from "express";
-import ResponsableController from "../controllers/responsable.controller"
+import UserController from "../controllers/user.controllers";
+import express, { request, response } from "express";
+//import ResponsableController from "../controllers/responsable.controller"
 import PreventiveController from "../controllers/preventive.controller";
 import CorrectiveController from "../controllers/corrective.controller";
 import EquipementController from "../controllers/equipement.controller";
@@ -15,8 +15,8 @@ export default class Routes {
     correctiveController: CorrectiveController = new CorrectiveController
     creerController: CreerController = new CreerController
     notamController: NotamController = new NotamController
-    ingenieurController: IngenieurController = new IngenieurController
-    responsableController: ResponsableController = new ResponsableController
+    UserController: UserController = new UserController
+    // responsableController: ResponsableController = new ResponsableController
     preventiveController: PreventiveController = new PreventiveController
     equipementController: EquipementController = new EquipementController
     effectuerController: EffectuerController = new EffectuerController
@@ -25,23 +25,22 @@ export default class Routes {
 
     public routes(app: express.Application): void {
 
-        app.route("/ingenieur-signin")
-            .post(this.signin.signinIngenieur);
+        app.route("/user-signin")
+            .post(this.signin.signinUser);
 
-        app.route("/responsablesignin")
-            .post(this.signin.signinResponsable);
+        app.route("/user-changePassword")
+            .put(this.signin.resetPasswordTokenUser)
 
+        app.route('/user-changePassword/:token')
+            .get(this.signin.getPasswordToken)
+            .post(this.signin.updateUserPassword)
 
         app.route("/register")
             .post(this.register.register);
 
-        app.route("/ingenieur")
-            .get(this.ingenieurController.index)
-            .post(this.ingenieurController.create);
-
-        app.route("/responsable")
-            .get(this.responsableController.index)
-            .post(this.responsableController.create);
+        app.route("/User")
+            .get(this.UserController.index)
+            .post(this.UserController.create);
 
         app.route("/preventive")
             .get(this.preventiveController.index)
@@ -66,6 +65,7 @@ export default class Routes {
         app.route("/creer")
             .get(this.creerController.index)
             .post(this.creerController.create)
+
 
     }
 }

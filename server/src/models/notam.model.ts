@@ -1,10 +1,10 @@
 import { Model, DataTypes } from "sequelize"
 import { database } from "../config/database";
 import { Corrective } from "./corrective.model";
-import { Responsable } from "./responsable.model";
+import { User } from "./user.model";
 
 //Notam: Lorsque la tache corrective est effectuée
-//une notification est envoyée au responsable pour créer un Notam
+//une notification est envoyée au User pour créer un Notam
 
 export interface NotamInterface {
     id_notam: number;
@@ -21,7 +21,7 @@ export class Notam extends Model implements NotamInterface {
     objetNotam!: string;
     autre!: string;
     toJSON() {
-        return { ...this.get(), id_responsable: undefined }
+        return { ...this.get(), id_notam: undefined }
     };
 }
 
@@ -69,5 +69,5 @@ Notam.init(
 Corrective.hasMany(Notam);
 Notam.belongsTo(Corrective);
 
-Responsable.hasMany(Notam);
-Notam.belongsTo(Responsable);
+User.hasMany(Notam);
+Notam.belongsTo(User);
