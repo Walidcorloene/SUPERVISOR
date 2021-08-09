@@ -19,9 +19,9 @@ export default class EffectuerController {
     }
 
     public async getById(req: Request, res: Response) {
-        const IngenieurId: number = parseInt(req.params.IngenieurIdIngenieur);
+        const UserId: number = parseInt(req.params.UserIdUser);
 
-        await Effectuer.findByPk<Effectuer>(IngenieurId)
+        await Effectuer.findByPk<Effectuer>(UserId)
             .then((effectuer: Effectuer | null) => {
                 if (effectuer) {
                     res.json(effectuer);
@@ -35,7 +35,7 @@ export default class EffectuerController {
     public async update(req: Request, res: Response) {
         const params: EffectuerInterface = req.body;
         console.log(params)
-        await Effectuer.update<Effectuer>(params, { where: { id: params.IngenieurIdIngenieur } })
+        await Effectuer.update<Effectuer>(params, { where: { id: params.UserIdUser } })
             .then(() => res.status(201).json({ Message: "Updated with success" }))
             .catch((err: Error) => res.status(500).json(err));
     }
@@ -43,7 +43,7 @@ export default class EffectuerController {
     public async destroy(req: Request, res: Response) {
         const params: EffectuerInterface = req.body;
 
-        await Effectuer.destroy<Effectuer>({ where: { id: params.IngenieurIdIngenieur } })
+        await Effectuer.destroy<Effectuer>({ where: { id: params.UserIdUser } })
             .then(() => res.status(201).json({ Message: "Effectuer deleted" }))
             .catch((err: Error) => res.status(500).json(err));
     }

@@ -5,15 +5,17 @@ import { User } from "./user.model";
 //Creer: l'ingenieur crée une tache corrective
 
 export interface CreerInterface {
-    IngenieurIdIngenieur: number;
+    UserIdUser?: number | undefined;
+    CorrectiveIdCorrective?: number | undefined;
     date_debut_intervention: Date;
-    date_fin_intervention: Date;
+    date_fin_intervention?: Date | undefined;
 }
 
 export class Creer extends Model implements CreerInterface {
-    IngenieurIdIngenieur!: number;
+    UserIdUser?: number | undefined;
+    CorrectiveIdCorrective?: number | undefined;
     date_debut_intervention!: Date;
-    date_fin_intervention!: Date;
+    date_fin_intervention?: Date | undefined;
     toJSON() {
         return { ...this.get(), id_responsable: undefined }
     };

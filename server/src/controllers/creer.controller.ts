@@ -20,9 +20,9 @@ export default class CreerController {
     }
 
     public async getById(req: Request, res: Response) {
-        const IngenieurId: number = parseInt(req.params.IngenieurIdIngenieur);
+        const UserId: number = parseInt(req.params.UserIdUser);
 
-        await Creer.findByPk<Creer>(IngenieurId)
+        await Creer.findByPk<Creer>(UserId)
             .then((Creer: Creer | null) => {
                 if (Creer) {
                     res.json(Creer);
@@ -36,7 +36,7 @@ export default class CreerController {
     public async update(req: Request, res: Response) {
         const params: CreerInterface = req.body;
         console.log(params)
-        await Creer.update<Creer>(params, { where: { id: params.IngenieurIdIngenieur } })
+        await Creer.update<Creer>(params, { where: { id: params.UserIdUser } })
             .then(() => res.status(201).json({ Message: "Updated with success" }))
             .catch((err: Error) => res.status(500).json(err));
     }
@@ -44,7 +44,7 @@ export default class CreerController {
     public async destroy(req: Request, res: Response) {
         const params: CreerInterface = req.body;
 
-        await Creer.destroy<Creer>({ where: { id: params.IngenieurIdIngenieur } })
+        await Creer.destroy<Creer>({ where: { id: params.UserIdUser } })
             .then(() => res.status(201).json({ Message: "Creer deleted" }))
             .catch((err: Error) => res.status(500).json(err));
     }

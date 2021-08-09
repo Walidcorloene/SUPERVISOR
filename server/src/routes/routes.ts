@@ -10,6 +10,7 @@ import CreerController from "../controllers/creer.controller";
 import Signin from "../controllers/signin.controller";
 import Register from "../controllers/register.controller";
 
+
 export default class Routes {
 
     correctiveController: CorrectiveController = new CorrectiveController
@@ -22,6 +23,7 @@ export default class Routes {
     effectuerController: EffectuerController = new EffectuerController
     signin: Signin = new Signin
     register: Register = new Register;
+   
 
     public routes(app: express.Application): void {
 
@@ -38,7 +40,7 @@ export default class Routes {
         app.route("/register")
             .post(this.register.register);
 
-        app.route("/User")
+        app.route("/user")
             .get(this.UserController.index)
             .post(this.UserController.create);
 

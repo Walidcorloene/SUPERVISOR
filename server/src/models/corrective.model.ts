@@ -3,21 +3,21 @@ import { database } from "../config/database";
 import { Equipement } from "./equipement.model";
 
 export interface CorrectiveInterface {
-
     id_corrective: number;
     anomalies_constatees: string;
     ref_manip: string;
     nom_technicien: string;
+    EquipementIdEquipement?: number | undefined;
 }
 
 export class Corrective extends Model implements CorrectiveInterface {
-
     id_corrective!: number;
     anomalies_constatees!: string;
     ref_manip!: string;
     nom_technicien!: string;
+    EquipementIdEquipement?: number | undefined;
     toJSON() {
-        return { ...this.get(), id_responsable: undefined }
+        return { ...this.get(), id_corrective: undefined }
     };
 
 }

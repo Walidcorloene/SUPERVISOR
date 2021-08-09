@@ -9,9 +9,9 @@ export interface UserInterface {
     login: string;
     password: string;
     email: string;
-    role:string;
-    resetPasswordToken: string;
-    
+    role: string;
+    resetPasswordToken?: string | undefined;
+
 }
 
 export class User extends Model implements UserInterface {
@@ -21,9 +21,9 @@ export class User extends Model implements UserInterface {
     login!: string;
     password!: string;
     email!: string;
-    role!:string;
-    resetPasswordToken!: string;
-    
+    role!: string;
+    resetPasswordToken?: string | undefined;
+
     toJSON() {
         return { ...this.get(), id_user: undefined }
     };
@@ -54,11 +54,12 @@ User.init(
         },
         email: {
             type: new DataTypes.STRING(50),
+            unique: true,
             allowNull: false,
         },
-        role:{
-            type: DataTypes.STRING(50),
-            allowNull:false
+        role: {
+            type: DataTypes.ENUM("ingenieur", "responsable"),
+            allowNull: false
         },
         resetPasswordToken: {
             type: DataTypes.STRING,

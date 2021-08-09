@@ -40,18 +40,19 @@ Equipement.init(
             allowNull: false,
         },
         etat_station: {
-            type: new DataTypes.ENUM("sans_restriction", "avec_restriction", "inutilisable")
+            type: new DataTypes.ENUM("sans_restriction", "avec_restriction", "inutilisable"),
+            allowNull:false
         },
         R_restriction: {
             type: new DataTypes.STRING(30),
             allowNull: false,
         },
         pieces_remplaces: {
-            type: new DataTypes.STRING(60),
+            type: new DataTypes.STRING(100),
             allowNull: false,
         },
         operations_effectuees: {
-            type: new DataTypes.STRING(100),
+            type: new DataTypes.TEXT,
             allowNull: false,
         }
     },

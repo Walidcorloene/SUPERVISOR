@@ -9,6 +9,8 @@ export interface PreventiveInterface {
     anomalie_constatee_reparee: string;
     travaux_effectues: string;
     nom_technicien: string;
+    EquipementIdEquipement?: number | undefined;
+    UserIdUser?: number | undefined;
 }
 
 export class Preventive extends Model implements PreventiveInterface {
@@ -17,6 +19,8 @@ export class Preventive extends Model implements PreventiveInterface {
     anomalie_constatee_reparee!: string;
     travaux_effectues!: string;
     nom_technicien!: string;
+    EquipementIdEquipement?: number | undefined;
+    UserIdUser?: number | undefined;
     toJSON() {
         return { ...this.get(), id_preventive: undefined }
     };
