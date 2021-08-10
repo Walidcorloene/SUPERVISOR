@@ -181,18 +181,18 @@ export default class Signin {
 
     public async getPasswordToken(req: Request, res: Response) {
         const params = req.params
-
         const param = {
             where: {
                 resetPasswordToken: params.token
             }
         }
         const _user = await User.findOne(param)
-        console.log(_user)
+        
         if (!_user) {
             return res.status(500).json("link expired or wrong token")
         }
-        console.log(req.body)
+        
+        console.log(_user)
         return res.render('checkPassword', { _user: req.body })
 
 
@@ -200,9 +200,9 @@ export default class Signin {
 
 
     public async updateUserPassword(req: Request, res: Response) {
-        console.log(req);
         const param = req.params;
         const _body = req.body;
+        console.log(param)
         const updated = await User.update(
             {
                 password: await bcrypt.hash(_body.password, 10),
@@ -213,6 +213,6 @@ export default class Signin {
 
         if (!updated)
             return res.status(500).json("something went wrong when updating")
-        return res.status(200).json("password updated with succcess")
+        return res.redirect('/success')
     }
 }

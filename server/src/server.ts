@@ -1,14 +1,14 @@
-import express from "express";
+import express, { request, response } from "express";
 import * as bodyParser from "body-parser";
 import Routes from "./routes/routes"
 import { database } from "./config/database";
-
+import Signin from "./controllers/signin.controller";
 export default class Server {
 
     public app: express.Application;
     public port: number;
     public route: Routes = new Routes();
-
+    public signin: Signin=new Signin;
     constructor(port: number) {
         this.app = express();
         this.port = port;
