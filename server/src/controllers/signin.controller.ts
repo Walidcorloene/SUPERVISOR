@@ -78,15 +78,15 @@ export default class Signin {
             let _body: ResponsableInterface = req.body;
     
             const _user = await Signin.checkUser(_body.email, Responsable)
-    
+
             if (!_user)//si le _user n'existe pas dans la bd
-    
+
                 res.status(500).json("Reset Password Responsable error: the _user doesn't exist")
                 const _payload = {
                     id: _user.id_responsable,
                     email: _user.email
                 };
-    
+
                 const token = jwt.sign(
                     _payload,
                     "secretjwtSecret",
