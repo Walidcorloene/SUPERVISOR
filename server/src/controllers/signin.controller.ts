@@ -54,6 +54,8 @@ export default class Signin {
         if (!(Signin.checkPassword(_body.password, _user.password)))
             return res.status(500).json("Error User: Wrong password");
 
+        const token: string = jwt.sign({ _id: _user.id_user }, 'TOKEN_SECRET' || '');
+        res.header('auth-token', token).json(token);
         return res.status(200).json("User Signed in")
     }
     /*

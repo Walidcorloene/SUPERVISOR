@@ -22,6 +22,13 @@ export class Corrective extends Model implements CorrectiveInterface {
         return { ...this.get(), id_corrective: undefined }
     };
 
+    public async create(body: any) {
+        const new_corrective = await Corrective.create<Corrective>(body)
+
+        if (!new_corrective)
+            false;
+        return true;
+    }
 }
 
 Corrective.init(

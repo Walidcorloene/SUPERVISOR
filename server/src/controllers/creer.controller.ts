@@ -21,11 +21,11 @@ export default class CreerController {
             },
             limit: 1
         };
-        const corrective = await Corrective.findOne(params);
+        const corrective = await Corrective.create(body)
+        if (!corrective)
+            res.status(500).json("Error: Can't create corrective");
 
-        await Creer.create<Creer>(body)
-            .then((creer: Creer) => res.status(201).json(creer))
-            .catch((err: Error) => res.status(500).json(err));
+        res.status(200).json("Corrective created");
     }
 
     public async getById(req: Request, res: Response) {
