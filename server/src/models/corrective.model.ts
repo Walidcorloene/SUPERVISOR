@@ -4,7 +4,6 @@ import { Equipement } from "./equipement.model";
 
 export interface CorrectiveInterface {
     id_corrective: number;
-    id_user: number;
     anomalies_constatees: string;
     ref_manip: string;
     nom_technicien: string;
@@ -13,7 +12,6 @@ export interface CorrectiveInterface {
 
 export class Corrective extends Model implements CorrectiveInterface {
     id_corrective!: number;
-    id_user!: number;
     anomalies_constatees!: string;
     ref_manip!: string;
     nom_technicien!: string;
@@ -22,6 +20,13 @@ export class Corrective extends Model implements CorrectiveInterface {
         return { ...this.get(), id_corrective: undefined }
     };
 
+    public async create(body: any) {
+        const new_corrective = await Corrective.create<Corrective>(body)
+
+        if (!new_corrective)
+            false;
+        return true;
+    }
 }
 
 Corrective.init(

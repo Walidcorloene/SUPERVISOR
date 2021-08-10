@@ -2,11 +2,8 @@ import { Request, Response } from "express";
 //import { Responsable, ResponsableInterface } from "../models/responsable.model";
 import { User, UserInterface } from "../models/user.model";
 import bcrypt, { compare } from "bcrypt"
-import generator from "generate-password";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"
-import fs from "fs"
-
 
 export default class Signin {
 
@@ -54,6 +51,8 @@ export default class Signin {
         if (!(Signin.checkPassword(_body.password, _user.password)))
             return res.status(500).json("Error User: Wrong password");
 
+        const token: string = jwt.sign({ _id: _user.id_user }, 'TOKEN_SECRET' || '');
+        res.header('auth-token', token).json(token);
         return res.status(200).json("User Signed in")
     }
     /*
@@ -79,15 +78,15 @@ export default class Signin {
             let _body: ResponsableInterface = req.body;
     
             const _user = await Signin.checkUser(_body.email, Responsable)
-    
+
             if (!_user)//si le _user n'existe pas dans la bd
-    
+
                 res.status(500).json("Reset Password Responsable error: the _user doesn't exist")
                 const _payload = {
                     id: _user.id_responsable,
                     email: _user.email
                 };
-    
+
                 const token = jwt.sign(
                     _payload,
                     "secretjwtSecret",
