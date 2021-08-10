@@ -1,15 +1,15 @@
-CREATE TABLE `ingenieur` (
-  `id_ingenieur` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id_user` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
   `login` varchar(30) UNIQUE NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(300) NOT NULL
-  `resetPasswordToken` varchar(225),
-  `resetPasswordExpires` date
-);
+  `email` varchar(300) UNIQUE NOT NULL,
+  `role` ENUM('ingenieur', 'responsable'),
+  `resetPasswordToken` varchar(225)
+  );
 
-CREATE TABLE `Equipement` (
+CREATE TABLE `equipement` (
   `id_equipement` int(150) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `equipement_machine` varchar(150) NOT NULL,
   `atelier` varchar(150) NOT NULL,
@@ -27,68 +27,58 @@ CREATE TABLE `corrective` (
   `EquipementIdEquipement` int
 );
 
-CREATE TABLE `responsable` (
-  `id_responsable` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `surname` varchar(30) NOT NULL,
-  `login` varchar(30) UNIQUE NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(50) NOT NULL
-  `resetPasswordToken` varchar(225),
-  `resetPasswordExpires` date
-);
-
 CREATE TABLE `preventive` (
   `id_preventive` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `outillage_documentation` text NOT NULL,
-  `anomalie_constatee_reparee` varchar(150) NOT NULL,
+  `anomalie_constatee_reparee` text NOT NULL,
   `travaux_effectues` text NOT NULL,
   `nom_technicien` varchar(60) NOT NULL,
-  `ResponsableIdResponsable` int,
+  `UserIdUser` int,
   `EquipementIdEquipement` int
 );
 
 CREATE TABLE `notam` (
   `id_notam` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `dateDebut` datetime,
+  `dateDebut` datetime not null default now(),
+  `dateFin` datetime,
   `installation` varchar(100) NOT NULL,
-  `cause` varchar(150) NOT NULL,
-  `objetNotam` varchar(150),
+  `cause` varchar(50) NOT NULL,
+  `objetNotam` varchar(50),
   `contenu` text,
   `CorrectiveIdCorrective` int,
-  `ResponsableIdResponsable` int
+  `UserIdUser` int
 );
 
 CREATE TABLE `effectuer` (
-  `IngenieurIdIngenieur` int NOT NULL,
+  `UserIdUser` int NOT NULL,
   `PreventiveIdPreventive` int NOT NULL,
-  `date_debut_intervention` DATE NOT NULL,
-  `date_fin_intervention` DATE NOT NULL,
-  PRIMARY KEY (`IngenieurIdIngenieur`, `PreventiveIdPreventive`)
+  `date_debut_intervention` datetime NOT NULL default now(),
+  `date_fin_intervention` datetime ,
+  PRIMARY KEY (`UserIdUser`, `PreventiveIdPreventive`)
 );
 
 CREATE TABLE `creer` (
-  `IngenieurIdIngenieur` int NOT NULL,
+  `UserIdUser` int NOT NULL,
   `CorrectiveIdCorrective` int NOT NULL,
-  `date_debut_intervention` date NOT NULL,
-  `dete_fin_intervention` date NOT NULL,
-  PRIMARY KEY (`IngenieurIdIngenieur`, `CorrectiveIdCorrective`)
+  `date_debut_intervention` datetime NOT NULL default now(),
+  `dete_fin_intervention` datetime ,
+  PRIMARY KEY (`UserIdUser`, `CorrectiveIdCorrective`)
 );
 
 ALTER TABLE `corrective` ADD FOREIGN KEY (`EquipementIdEquipement`) REFERENCES `equipement` (`id_equipement`);
 
-ALTER TABLE `preventive` ADD FOREIGN KEY (`ResponsableIdResponsable`) REFERENCES `responsable` (`id_responsable`);
+ALTER TABLE `preventive` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
 
 ALTER TABLE `preventive` ADD FOREIGN KEY (`EquipementIdEquipement`) REFERENCES `equipement` (`id_equipement`);
 
 ALTER TABLE `notam` ADD FOREIGN KEY (`CorrectiveIdCorrective`) REFERENCES `corrective` (`id_corrective`);
 
-ALTER TABLE `notam` ADD FOREIGN KEY (`ResponsableIdResponsable`) REFERENCES `responsable` (`id_responsable`);
+ALTER TABLE `notam` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
 
-ALTER TABLE `effectuer` ADD FOREIGN KEY (`IngenieurIdIngenieur`) REFERENCES `ingenieur` (`id_ingenieur`);
+ALTER TABLE `effectuer` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
 
 ALTER TABLE `effectuer` ADD FOREIGN KEY (`PreventiveIdPreventive`) REFERENCES `preventive` (`id_preventive`);
 
-ALTER TABLE `creer` ADD FOREIGN KEY (`IngenieurIdIngenieur`) REFERENCES `ingenieur` (`id_ingenieur`);
+ALTER TABLE `creer` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
 
 ALTER TABLE `creer` ADD FOREIGN KEY (`CorrectiveIdCorrective`) REFERENCES `corrective` (`id_corrective`);
