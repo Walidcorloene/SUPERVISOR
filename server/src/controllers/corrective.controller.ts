@@ -21,9 +21,7 @@ export default class CorrectiveController {
             },
             limit: 1
         };
-        const user = await Corrective.findOne(params);
-        if (!user)
-            return res.status(500).json("Error User: No _user found");
+        const corrective = await Corrective.findOne(params);
 
         const new_corrective = await Corrective.create<Corrective>(body)
         if (!new_corrective)

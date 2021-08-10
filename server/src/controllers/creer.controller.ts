@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Creer, CreerInterface } from "../models/creer.model";
+import { Corrective, CorrectiveInterface } from "../models/corrective.model"
 
 export default class CreerController {
 
@@ -13,6 +14,15 @@ export default class CreerController {
 
     public async create(req: Request, res: Response) {
         const body: CreerInterface = req.body;
+
+        const params = {
+            where: {
+                UserIdUser: body.UserIdUser,
+            },
+            limit: 1
+        };
+        const corrective = await Corrective.findOne(params);
+
         await Creer.create<Creer>(body)
             .then((creer: Creer) => res.status(201).json(creer))
             .catch((err: Error) => res.status(500).json(err));
