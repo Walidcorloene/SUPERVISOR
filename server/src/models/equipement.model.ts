@@ -20,7 +20,7 @@ export class Equipement extends Model implements EquipementInterface {
     pieces_remplaces!: string;
     operations_effectuees!: string;
     toJSON() {
-        return { ...this.get(), id_responsable: undefined }
+        return { ...this.get(), id_equipement: undefined }
     };
 }
 
@@ -31,7 +31,7 @@ Equipement.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        equipment_machine: {
+        equipement_machine: {
             type: new DataTypes.STRING(150),
             allowNull: false,
         },

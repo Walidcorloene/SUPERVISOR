@@ -5,8 +5,11 @@ import bcrypt, { compare } from "bcrypt"
 import generator from "generate-password";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"
+import fs from "fs"
+
 
 export default class Signin {
+
     static checkPasswordFields(password: string, confirmpass: string) {
         if (password == confirmpass)
             return
@@ -190,8 +193,8 @@ export default class Signin {
             return res.status(500).json("link expired or wrong token")
         }
         console.log(req.body)
-        return res.render('resetpassword', { _user: req.body }) 
-        
+        return res.render('checkPassword', { _user: req.body })
+
 
     }
 

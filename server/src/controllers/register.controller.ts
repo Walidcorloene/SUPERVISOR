@@ -35,7 +35,7 @@ export default class Register {
     */
 
         User.create<User>(newUser)
-            .then((responsable: User) => res.status(201).json(responsable))
+            .then((user: User) => res.status(201).json(user))
             .catch((err: Error) => res.status(500).json(err));
 
         //let newResponsable = Responsable.create<Responsable>(responsable)

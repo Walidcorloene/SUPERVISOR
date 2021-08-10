@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { Corrective, CorrectiveInterface } from "../models/corrective.model";
+import { User, UserInterface } from "../models/user.model";
 
 export default class CorrectiveController {
-    public async index(req: Request, res: Response) {
+
+    public async getAll(req: Request, res: Response) {
         const corrective = await Corrective.findAll<Corrective>({})
         console.log(corrective)
         await Corrective.findAll<Corrective>({})
@@ -11,11 +13,23 @@ export default class CorrectiveController {
     }
 
     public async create(req: Request, res: Response) {
-        const params: CorrectiveInterface = req.body;
-        console.log(params)
-        await Corrective.create<Corrective>(params)
-            .then((corrective: Corrective) => res.status(201).json(corrective))
-            .catch((err: Error) => res.status(500).json(err));
+        const body: CorrectiveInterface = req.body;
+
+        const params = {
+            where: {
+                nom_technicien: body.nom_technicien
+            },
+            limit: 1
+        };
+        const user = await Corrective.findOne(params);
+        if (!user)
+            return res.status(500).json("Error User: No _user found");
+
+        const new_corrective = await Corrective.create<Corrective>(body)
+        if (!new_corrective)
+            return res.status(500).json("Error Correctrive: Can't create corrective");
+        
+        return res.status(201).json("Corrective task created");
     }
 
     public async getById(req: Request, res: Response) {
@@ -34,7 +48,12 @@ export default class CorrectiveController {
 
     public async update(req: Request, res: Response) {
         const params: CorrectiveInterface = req.body;
-        console.log(params)
+        const CorrectiveId: number = parseInt(req.params.id_corrective);
+
+        const corrective = await Corrective.findByPk<Corrective>(CorrectiveId)
+        if (!corrective)
+            res.status(404).json("Corrective error: can not find corrective");
+        
         await Corrective.update<Corrective>(params, { where: { id: params.id_corrective } })
             .then(() => res.status(201).json({ Message: "Corrective Updated with success" }))
             .catch((err: Error) => res.status(500).json(err));

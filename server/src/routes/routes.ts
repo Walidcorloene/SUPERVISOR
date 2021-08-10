@@ -49,8 +49,11 @@ export default class Routes {
             .post(this.preventiveController.create);
 
         app.route("/corrective")
-            .get(this.correctiveController.index)
+            .get(this.correctiveController.getAll)
             .post(this.correctiveController.create);
+
+        app.route("/corrective/:id?")
+            .put(this.correctiveController.update);
 
         app.route("/equipement")
             .get(this.equipementController.index)
