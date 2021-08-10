@@ -2,11 +2,8 @@ import { Request, Response } from "express";
 //import { Responsable, ResponsableInterface } from "../models/responsable.model";
 import { User, UserInterface } from "../models/user.model";
 import bcrypt, { compare } from "bcrypt"
-import generator from "generate-password";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"
-import fs from "fs"
-
 
 export default class Signin {
 
