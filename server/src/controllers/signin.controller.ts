@@ -7,10 +7,6 @@ import jwt from "jsonwebtoken"
 
 export default class Signin {
 
-    static checkPasswordFields(password: string, confirmpass: string) {
-        if (password == confirmpass)
-            return
-    }
     static checkPassword(password: string, originalPass: string) {
 
         const matched = bcrypt.compareSync(password, originalPass);
@@ -53,6 +49,7 @@ export default class Signin {
 
         const token: string = jwt.sign({ _id: _user.id_user }, 'TOKEN_SECRET' || '');
         res.header('auth-token', token).json(token);
+        console.log(token)
         return res.status(200).json("User Signed in")
     }
     /*
@@ -166,7 +163,7 @@ export default class Signin {
     }
 
     private static async createPasswordToken(id_user: any, token: any, User: any) {
-        console.log(id_user)
+
         const updated = await User.update(
             {
                 resetPasswordToken: token
@@ -186,11 +183,11 @@ export default class Signin {
             }
         }
         const _user = await User.findOne(param)
-        
+
         if (!_user) {
             return res.status(500).json("link expired or wrong token")
         }
-        
+
         console.log(_user)
         return res.render('checkPassword', { _user: req.body })
 
@@ -198,10 +195,10 @@ export default class Signin {
     }
 
 
-    public async updateUserPassword(req: Request, res: Response) {
+    public async updateUserPassword(req: Request, resp: Response) {
         const param = req.params;
         const _body = req.body;
-        console.log(param)
+        console.log(_body)
         const updated = await User.update(
             {
                 password: await bcrypt.hash(_body.password, 10),
@@ -211,7 +208,7 @@ export default class Signin {
         );
 
         if (!updated)
-            return res.status(500).json("something went wrong when updating")
-        return res.redirect('/success')
+            return resp.status(500).json("something went wrong when updating")
+        return resp.redirect('/success')
     }
 }

@@ -33,9 +33,14 @@ export default class Routes {
         app.route("/user-changePassword")
             .put(this.signin.resetPasswordTokenUser)
 
-        app.route('/user-changePassword/:token')
+        app.route("/user-changePassword/:token")
             .get(this.signin.getPasswordToken)
             .post(this.signin.updateUserPassword)
+
+        app.get("/success",function(req,res){
+            res.render("success");
+        })
+
 
         app.route("/register")
             .post(this.register.register);

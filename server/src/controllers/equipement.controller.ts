@@ -4,7 +4,7 @@ import { Equipement, EquipementInterface } from "../models/equipement.model";
 export default class EquipementController {
     public async index(req: Request, res: Response) {
         const equipement = await Equipement.findAll<Equipement>({})
-        console.log(equipement)
+        console.log(req)
         await Equipement.findAll<Equipement>({})
             .then((equipement: Array<Equipement>) => res.json(equipement))
             .catch((err: Error) => res.status(500).json({ Message: "Equipement Controller Error", err }));
@@ -12,7 +12,8 @@ export default class EquipementController {
 
     public async create(req: Request, res: Response) {
         const params: EquipementInterface = req.body;
-        console.log(params)
+        console.log(req)
+
         await Equipement.create<Equipement>(params)
             .then((equipement: Equipement) => res.status(201).json(equipement))
             .catch((err: Error) => res.status(500).json(err));

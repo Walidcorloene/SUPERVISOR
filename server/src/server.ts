@@ -17,7 +17,6 @@ export default class Server {
         this.app.set("view engine", "ejs");
         this.app.set('views', 'src/view');
         this.route.routes(this.app);
-
     }
 
     public listen() {
