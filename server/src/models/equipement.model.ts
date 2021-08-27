@@ -8,7 +8,6 @@ export interface EquipementInterface {
     etat_station: string;
     R_restriction: string;
     pieces_remplaces: string;
-    operations_effectuees: string;
 }
 
 export class Equipement extends Model implements EquipementInterface {
@@ -18,7 +17,6 @@ export class Equipement extends Model implements EquipementInterface {
     etat_station!: string;
     R_restriction!: string;
     pieces_remplaces!: string;
-    operations_effectuees!: string;
     toJSON() {
         return { ...this.get(), id_equipement: undefined }
     };
@@ -49,10 +47,6 @@ Equipement.init(
         },
         pieces_remplaces: {
             type: new DataTypes.STRING(100),
-            allowNull: false,
-        },
-        operations_effectuees: {
-            type: new DataTypes.TEXT,
             allowNull: false,
         }
     },

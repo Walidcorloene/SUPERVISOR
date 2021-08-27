@@ -24,15 +24,7 @@ export class Effectuer extends Model implements EffectuerInterface {
 
 Effectuer.init(
     {
-        date_debut_intervention: {
-            type: new DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
-        },
-        date_fin_intervention: {
-            type: new DataTypes.DATE,
-            allowNull: true
-        },
+       
     },
     {
         timestamps: false,

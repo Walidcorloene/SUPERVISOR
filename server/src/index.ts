@@ -1,6 +1,8 @@
 import Server from "./server";
-
-const server = new Server(3000)
+import dotenv from "dotenv"
+const process = require('process');
+dotenv.config();
+const server = new Server(process.env.PORT)
 server.listen()
 
 

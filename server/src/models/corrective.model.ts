@@ -4,18 +4,27 @@ import { Equipement } from "./equipement.model";
 
 export interface CorrectiveInterface {
     id_corrective: number;
+    id_user:number;
     anomalies_constatees: string;
     ref_manip: string;
     nom_technicien: string;
+    travaux_effectues:string;
     EquipementIdEquipement?: number | undefined;
+    date_debut_intervention:Date;
+    date_fin_intervention:Date;
 }
 
 export class Corrective extends Model implements CorrectiveInterface {
     id_corrective!: number;
+    id_user!:number;
     anomalies_constatees!: string;
     ref_manip!: string;
     nom_technicien!: string;
+    travaux_effectues!:string;
     EquipementIdEquipement?: number | undefined;
+    date_debut_intervention!:Date;
+    date_fin_intervention!:Date;
+    
     toJSON() {
         return { ...this.get(), id_corrective: undefined }
     };
@@ -51,7 +60,20 @@ Corrective.init(
         nom_technicien: {
             type: new DataTypes.STRING(60),
             allowNull: false,
-        }
+        },
+        travaux_effectues: {
+            type: new DataTypes.TEXT,
+            allowNull: false,
+        },
+        date_debut_intervention: {
+            type: new DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        date_fin_intervention: {
+            type: new DataTypes.DATE,
+            allowNull: true
+        },
     },
     {
         timestamps: false,

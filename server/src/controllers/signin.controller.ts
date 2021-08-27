@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
 //import { Responsable, ResponsableInterface } from "../models/responsable.model";
 import { User, UserInterface } from "../models/user.model";
-import bcrypt, { compare } from "bcrypt"
+import bcrypt from "bcrypt"
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+const process = require('process');
 
+dotenv.config();
 export default class Signin {
+
 
     static checkPassword(password: string, originalPass: string) {
 
@@ -36,9 +40,9 @@ export default class Signin {
 
     public async signinUser(req: Request, res: Response) {
         let _body: UserInterface = req.body;
-
+        console.log(_body)
         if (!(Signin.checkFields(_body.email, _body.password)))
-            return res.status(400).json("Sign in Error: Missing Data")
+            return res.status(404).json("Sign in Error: Missing Data")
 
         const _user = await Signin.checkUser(_body.email, User);
         if (!_user)
@@ -46,11 +50,12 @@ export default class Signin {
 
         if (!(Signin.checkPassword(_body.password, _user.password)))
             return res.status(500).json("Error User: Wrong password");
+        const accessToken = jwt.sign(_user, process.env.JWT_SECRET,{algorithm: "HS256",
+            expiresIn: "1d"
+        });
+        return res.status(200).json(JSON.stringify({ id_user: _user.id_user, message: 'loggedIn' }))
 
-        const token: string = jwt.sign({ _id: _user.id_user }, 'TOKEN_SECRET' || '');
-        res.header('auth-token', token).json(token);
-        console.log(token)
-        return res.status(200).json("User Signed in")
+
     }
     /*
         public async signinResponsable(req: Request, res: Response) {
@@ -190,10 +195,7 @@ export default class Signin {
 
         console.log(_user)
         return res.render('checkPassword', { _user: req.body })
-
-
     }
-
 
     public async updateUserPassword(req: Request, resp: Response) {
         const param = req.params;

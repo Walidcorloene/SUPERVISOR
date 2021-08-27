@@ -11,6 +11,8 @@ export interface PreventiveInterface {
     nom_technicien: string;
     EquipementIdEquipement?: number | undefined;
     UserIdUser?: number | undefined;
+    date_debut_intervention:Date;
+    date_fin_intervention:Date;
 }
 
 export class Preventive extends Model implements PreventiveInterface {
@@ -21,6 +23,8 @@ export class Preventive extends Model implements PreventiveInterface {
     nom_technicien!: string;
     EquipementIdEquipement?: number | undefined;
     UserIdUser?: number | undefined;
+    date_debut_intervention!:Date;
+    date_fin_intervention!:Date;
     toJSON() {
         return { ...this.get(), id_preventive: undefined }
     };
@@ -34,7 +38,10 @@ Preventive.init(
             autoIncrement: true,
             primaryKey: true,
         },
-
+        id_user: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         outillage_documentation: {
             type: new DataTypes.TEXT,
             allowNull: false,
@@ -50,7 +57,16 @@ Preventive.init(
         nom_technicien: {
             type: new DataTypes.STRING(60),
             allowNull: false,
-        }
+        },
+        date_debut_intervention: {
+            type: new DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        date_fin_intervention: {
+            type: new DataTypes.DATE,
+            allowNull: true
+        },
     },
     {
         timestamps: false,

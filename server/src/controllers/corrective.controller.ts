@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Corrective, CorrectiveInterface } from "../models/corrective.model";
+import { Creer } from "../models/creer.model";
 import { User, UserInterface } from "../models/user.model";
 
 export default class CorrectiveController {
@@ -26,7 +27,6 @@ export default class CorrectiveController {
         const new_corrective = await Corrective.create<Corrective>(body)
         if (!new_corrective)
             return res.status(500).json("Error Correctrive: Can't create corrective");
-        
         return res.status(201).json("Corrective task created");
     }
 
@@ -51,7 +51,7 @@ export default class CorrectiveController {
         const corrective = await Corrective.findByPk<Corrective>(CorrectiveId)
         if (!corrective)
             res.status(404).json("Corrective error: can not find corrective");
-        
+
         await Corrective.update<Corrective>(params, { where: { id: params.id_corrective } })
             .then(() => res.status(201).json({ Message: "Corrective Updated with success" }))
             .catch((err: Error) => res.status(500).json(err));
