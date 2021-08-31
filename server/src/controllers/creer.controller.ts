@@ -1,31 +1,14 @@
 import { Request, Response } from "express";
 import { Creer, CreerInterface } from "../models/creer.model";
 import { Corrective, CorrectiveInterface } from "../models/corrective.model"
+import { User } from "../models/user.model";
 
 export default class CreerController {
 
-    public async index(req: Request, res: Response) {
-        const creer = await Creer.findAll<Creer>({})
-        console.log(creer)
+    public async getAll(req: Request, res: Response) {
         await Creer.findAll<Creer>({})
-            .then((creer: Array<Creer>) => res.json(creer))
-            .catch((err: Error) => res.status(500).json({ Message: "Creer Controller Error", err }));
-    }
-
-    public async create(req: Request, res: Response) {
-        const body: CreerInterface = req.body;
-
-        const params = {
-            where: {
-                UserIdUser: body.UserIdUser,
-            },
-            limit: 1
-        };
-        const corrective = await Corrective.create(body)
-        if (!corrective)
-            res.status(500).json("Error: Can't create corrective");
-
-        res.status(200).json("Corrective created");
+        .then((creer: Array<Creer>) => res.json(creer))
+        .catch((err: Error) => res.status(500).json({ Message: "Creer Controller Error", err }));
     }
 
     public async getById(req: Request, res: Response) {

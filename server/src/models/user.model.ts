@@ -11,7 +11,6 @@ export interface UserInterface {
     email: string;
     role: string;
     resetPasswordToken?: string | undefined;
-
 }
 
 export class User extends Model implements UserInterface {
@@ -24,9 +23,9 @@ export class User extends Model implements UserInterface {
     role!: string;
     resetPasswordToken?: string | undefined;
 
-    toJSON() {
+  /*  toJSON() {
         return { ...this.get(), id_user: undefined }
-    };
+    };*/
 }
 
 User.init(

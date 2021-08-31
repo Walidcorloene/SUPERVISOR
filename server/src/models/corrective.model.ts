@@ -48,6 +48,10 @@ Corrective.init(
         id_user: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'user',
+                key: 'id_user',
+              },
         },
         anomalies_constatees: {
             type: new DataTypes.TEXT,

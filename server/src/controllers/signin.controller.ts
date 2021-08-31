@@ -6,8 +6,8 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 const process = require('process');
-
 dotenv.config();
+
 export default class Signin {
 
 
@@ -50,12 +50,16 @@ export default class Signin {
 
         if (!(Signin.checkPassword(_body.password, _user.password)))
             return res.status(500).json("Error User: Wrong password");
-        const accessToken = jwt.sign(_user, process.env.JWT_SECRET,{algorithm: "HS256",
-            expiresIn: "1d"
-        });
-        return res.status(200).json(JSON.stringify({ id_user: _user.id_user, message: 'loggedIn' }))
-
-
+        const accessToken = jwt.sign(
+            {
+                id_user: _user.id_user
+            }
+            , process.env.TOKEN_SECRET,
+            {
+                algorithm: "HS256",
+                expiresIn: "1d"
+            });
+        return res.status(200).json(JSON.stringify({ id_user: _user.id_user, message: 'loggedIn', accessToken }))
     }
     /*
         public async signinResponsable(req: Request, res: Response) {
@@ -122,7 +126,7 @@ export default class Signin {
 
         const token = jwt.sign(
             _payload,
-            "secretjwtSecret",
+            process.env.TOKEN_PASS_MAIL,
             { expiresIn: "1h" }
         );
 
@@ -155,7 +159,7 @@ export default class Signin {
             subject: "Password reset",
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://localhost:3000/user-changePassword/' + token + '\n\n' +
+                'http://192.168.1.8:3000/user-changePassword/' + token + '\n\n' +
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
 

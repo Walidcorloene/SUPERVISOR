@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import { Preventive, PreventiveInterface } from "../models/preventive.model";
 
 export default class PreventiveController {
-    public async index(req: Request, res: Response) {
-        const preventive = await Preventive.findAll<Preventive>({})
-        console.log(preventive)
-        await Preventive.findAll<Preventive>({})
-            .then((preventive: Array<Preventive>) => res.json(preventive))
-            .catch((err: Error) => res.status(500).json({ Message: "Preventive Controller Error", err }));
+    public async getAllPreventive(req: Request, res: Response) {
+        const preventive = await Preventive.findAll<Preventive>({});
+        if (!preventive) {
+            return res.status(500).json("Error while getting preventive");
+        }
+        res.status(200).json(preventive);
+        return preventive;
     }
 
     public async create(req: Request, res: Response) {
@@ -22,14 +23,14 @@ export default class PreventiveController {
         const PreventiveId: number = parseInt(req.params.id_preventive);
 
         await Preventive.findByPk<Preventive>(PreventiveId)
-        .then((preventive: Preventive | null) => {
-            if (preventive) {
-                res.json(preventive);
-            } else {
-                res.status(404).json({ errors: ["Preventive not found"] });
-            }
-        })
-        .catch((err: Error) => res.status(500).json(err));
+            .then((preventive: Preventive | null) => {
+                if (preventive) {
+                    res.json(preventive);
+                } else {
+                    res.status(404).json({ errors: ["Preventive not found"] });
+                }
+            })
+            .catch((err: Error) => res.status(500).json(err));
     }
 
     public async update(req: Request, res: Response) {

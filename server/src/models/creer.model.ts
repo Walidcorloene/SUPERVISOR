@@ -12,9 +12,6 @@ export interface CreerInterface {
 export class Creer extends Model implements CreerInterface {
     UserIdUser!: number;
     CorrectiveIdCorrective!: number;
-    toJSON() {
-        return { ...this.get(), id_responsable: undefined }
-    };
 }
 
 Creer.init({
