@@ -4,7 +4,7 @@ CREATE TABLE `user` (
   `surname` varchar(30) NOT NULL,
   `login` varchar(30) UNIQUE NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(300) UNIQUE NOT NULL,
+  `email` varchar(255) UNIQUE NOT NULL,
   `role` ENUM('ingenieur', 'responsable'),
   `resetPasswordToken` varchar(225)
   );
@@ -24,6 +24,8 @@ CREATE TABLE `corrective` (
   `anomalies_constatees` text not null,
   `ref_manip` varchar(100),
   `nom_technicien` varchar(60) NOT NULL,
+  `date_debut_intervention` datetime NOT NULL default now(),
+  `date_fin_intervention` datetime ,
   `EquipementIdEquipement` int
 );
 
@@ -33,6 +35,8 @@ CREATE TABLE `preventive` (
   `anomalie_constatee_reparee` text NOT NULL,
   `travaux_effectues` text NOT NULL,
   `nom_technicien` varchar(60) NOT NULL,
+  `date_debut_intervention` datetime NOT NULL default now(),
+  `dete_fin_intervention` datetime ,
   `UserIdUser` int,
   `EquipementIdEquipement` int
 );
@@ -52,16 +56,14 @@ CREATE TABLE `notam` (
 CREATE TABLE `effectuer` (
   `UserIdUser` int NOT NULL,
   `PreventiveIdPreventive` int NOT NULL,
-  `date_debut_intervention` datetime NOT NULL default now(),
-  `date_fin_intervention` datetime ,
+  
   PRIMARY KEY (`UserIdUser`, `PreventiveIdPreventive`)
 );
 
 CREATE TABLE `creer` (
   `UserIdUser` int NOT NULL,
   `CorrectiveIdCorrective` int NOT NULL,
-  `date_debut_intervention` datetime NOT NULL default now(),
-  `dete_fin_intervention` datetime ,
+  
   PRIMARY KEY (`UserIdUser`, `CorrectiveIdCorrective`)
 );
 
@@ -73,7 +75,7 @@ ALTER TABLE `preventive` ADD FOREIGN KEY (`EquipementIdEquipement`) REFERENCES `
 
 ALTER TABLE `notam` ADD FOREIGN KEY (`CorrectiveIdCorrective`) REFERENCES `corrective` (`id_corrective`);
 
-ALTER TABLE `notam` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
+ALTER TABLE `notam` ADD foreign key (`UserIdUser`) REFERENCES `user` (`id_user`);
 
 ALTER TABLE `effectuer` ADD FOREIGN KEY (`UserIdUser`) REFERENCES `user` (`id_user`);
 

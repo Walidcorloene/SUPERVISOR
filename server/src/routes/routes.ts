@@ -26,7 +26,7 @@ export default class Routes {
     public routes(app: express.Application): void {
 
         app.route("/user-signin")
-            .post(authenticateToken, this.signin.signinUser);
+            .post(this.signin.signinUser);
 
         app.route("/user-changePassword")
             .put(this.signin.resetPasswordTokenUser)
@@ -37,7 +37,7 @@ export default class Routes {
 
         app.get("/success", function (req, res) {
             res.render("success");
-            }
+        }
         );
 
         app.route("/register")
